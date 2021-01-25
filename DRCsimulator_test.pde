@@ -30,9 +30,10 @@ int radius = 300; // radius of curvature
 
 // constant increments
 float angle_increment = 0.5; // degrees
-int disp_increment = 5;
+float acc_magnitude = 0.1; // magnitude of acceleration
+float f_acc_magnitude = 0.02;
 
-Car car = new Car(init_x, init_y, init_angle, radius, angle_increment, disp_increment);
+Car car = new Car(init_x, init_y, init_angle, radius, angle_increment, acc_magnitude, f_acc_magnitude);
 
 
 void setup() {
@@ -47,7 +48,7 @@ void draw() {
   background(255);
 
 	car.update(keys);
-	track.update(car.x, car.y, car.angle);
+	track.update(car.pos.x, car.pos.y, car.angle);
 
 	client.write(keys);
 }
