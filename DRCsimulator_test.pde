@@ -1,5 +1,11 @@
 // for keyboard control
 boolean keys[] = new boolean[4];
+boolean record = false; //turn off communication with python initially
+
+// Communication with Python
+String str;
+import processing.net.*; 
+Client myClient;
 
 // create an image object
 PImage img;
@@ -63,31 +69,9 @@ void draw() {
   //rect(-x, -y, bias * 2, bias * 2);
   image(img, -x , -y , width * view_factor_x, height * view_factor_y);
   rotating_z(keys);
-  //println(angle);
-  //circular_motion(keys, radius, angle_increment);
-  //circle(0, 0, 500);
-  //print(bias);
-  //translate(bias * sin(radians(angle)), -bias * cos(radians(angle)));
-  //translate(bias * sin(radians(angle)), bias * cos(radians(angle)));
-  //translate(bias * sin(radians(angle)), bias * cos(radians(angle)));
-  //rotateZ(radians(angle));
-  //circle(0, 0, bias);
-  //circle(bias * sin(radians(angle)),bias * cos(radians(angle)), 10);
-  //circle(0, 0, bias);
-  //circle(-bias * sin(radians(angle)), -bias * cos(radians(angle)), 10);
-  //image(img, -x , -y , width * view_factor_x, height * view_factor_y);
-  //up_down_left_right(keys);
-  //rotating_z(keys);
-  //println(x, y);
-  /*
-  translate(width / 2, height / 2, view_z);
-  rotateX(radians(view_plane_x_angle));
-  translate(initial_x, initial_y);
-  rotateZ(radians(initial_rotate));
-  imageMode(CENTER);
-  image(img, 0, 0, width * view_factor_x, height * view_factor_y);
-  print(initial_x, initial_y);
-  //up_down_left_right(keys);
-  change_pos(keys);
-  */
+
+  if (record){
+    str = cvtArray2Str(keys); // convert keys to a string [0,1,0,1] => 0101
+    myClient.write(str); // write the string to my python script
+  }
 }
