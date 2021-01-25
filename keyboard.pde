@@ -70,7 +70,7 @@ void rotating_z(boolean [] keys){
   }
 }
 
-void view_changing(boolean [] keys){
+void view_changing(boolean [] keys, int view_z, float view_plane_x_angle){
   // bug spotted in changing the view angle, it doesn't change it in the way I expected
   if (keys[0]){
     view_z = view_z - disp_increment;
