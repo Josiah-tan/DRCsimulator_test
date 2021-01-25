@@ -1,9 +1,11 @@
 // for keyboard control
 boolean keys[] = new boolean[4];
+boolean record_keys = true; //turn off communication with python initially
 
 // Communication with Python
-boolean record = true; //if true, turn on websockets
-ClientWebSocket client = new ClientWebSocket(record);
+String str;
+import processing.net.*; 
+Client myClient;
 
 // create an image object
 PImage img;
@@ -19,6 +21,10 @@ int view_factor_y = 10;
 int view_z = 0; // distance the image is away from us
 float dist_z = -(360/2.0) / tan(PI*30.0 / 180.0); // actual distance from normal setting (view_z = 0)
 float view_plane_x_angle = 50; // angle of the cartesian plane rotated about x for viewing
+
+// initial position of where you want the m.p of the screen to be
+//float initial_x = -120;
+//float initial_y = -450;
 
 float initial_x = 1680;
 float initial_y = 1238;
@@ -48,8 +54,9 @@ void setup() {
   // Images must be in the "data" directory to load correctly
   img = loadImage("drc_track.png");
   size(640, 360, P3D); // if you change any of this, remember to change stuff below
-
-	client.connect(this, "127.0.0.1", 5000);
+  if (record_keys){
+     myClient = new Client(this, "127.0.0.1", 5000);  
+  }
 }
 
 void draw() {
@@ -64,8 +71,10 @@ void draw() {
   rotateZ(radians(angle));
   //rect(-x, -y, bias * 2, bias * 2);
   image(img, -x , -y , width * view_factor_x, height * view_factor_y);
-	up_down_left_right(keys);
-  //rotating_z(keys);
+  rotating_z(keys);
 
-	client.write(keys);
+  if (record_keys){
+    str = cvtArray2Str(keys); // convert keys to a string [0,1,0,1] => 0101
+    myClient.write(str); // write the string to my python script
+  }
 }
