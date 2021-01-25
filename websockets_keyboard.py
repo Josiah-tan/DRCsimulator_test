@@ -16,5 +16,6 @@ while True:
     raw_data = data.decode()
     #print(raw_data) # note that raw_data sometimes returns 
     
-    y = np.array([b == "1" for b in raw_data.split('\n')[0].split()]) # store data here "0 1 0 1"
+    #y = np.array([b == "1" for b in raw_data.split('\n')[0].split()]) # store data here "0 1 0 1"
+    y = np.array([int(i) for i in raw_data.split('\n')[0]])
     print(y)
