@@ -5,6 +5,9 @@ boolean keys[] = new boolean[4];
 boolean record = true; //if true, turn on websockets
 ClientWebSocket client = new ClientWebSocket(record);
 
+// Track initialisation
+Track track = new Track("drc_track.png");
+
 // create an image object
 PImage img;
 
@@ -46,7 +49,9 @@ float angle = initial_angle;
 
 void setup() {
   // Images must be in the "data" directory to load correctly
-  img = loadImage("drc_track.png");
+  //img = loadImage("drc_track.png");
+
+	track.setup();
   size(640, 360, P3D); // if you change any of this, remember to change stuff below
 
 	client.connect(this, "127.0.0.1", 5000);
@@ -55,6 +60,8 @@ void setup() {
 void draw() {
 
   background(255);
+
+	/*
   translate(0, 0, view_z); // move the image towards the page a little
   
   //translate(640/2 - bias * sin(radians(angle)), 360/2 + bias * cos(radians(angle))); 
@@ -64,8 +71,11 @@ void draw() {
   rotateZ(radians(angle));
   //rect(-x, -y, bias * 2, bias * 2);
   image(img, -x , -y , width * view_factor_x, height * view_factor_y);
-	up_down_left_right(keys);
-  //rotating_z(keys);
+	//up_down_left_right(keys);
+	*/
+	track.update(x, y, angle);
+
+  rotating_z(keys);
 
 	client.write(keys);
 }

@@ -1,5 +1,6 @@
 class Track{
 	PImage img;
+	String img_file;
 
 	// dimensions of screen viewable relative to the whole image
 	int view_factor_x = 10;
@@ -10,9 +11,13 @@ class Track{
 	float view_plane_x_angle = 50; // angle of the cartesian plane rotated about x for viewing
 	float bias;
 
-	Track(){
-
+	Track(String img_file){
+		this.img_file = img_file;
 		bias = abs(view_z + dist_z) * sin(radians(view_plane_x_angle));
+	}
+
+	void setup(){
+		img = loadImage(img_file);
 	}
 
 	void update(float x, float y, float angle){
