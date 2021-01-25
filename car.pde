@@ -25,7 +25,8 @@ class Car{
 	}
 
 	void update(boolean [] keys){
-		this.handleKeys(keys);
+		//this.handleUpDownLeftRight(keys);
+		this.handleSteeringThrust(keys);
 		vel.add(acc);
 		this.handleFriction();
 		vel.limit(10);
@@ -43,34 +44,78 @@ class Car{
 		}
 	}
 
-	void handleKeys(boolean [] keys){
+	void handleSteeringThrust(boolean [] keys){
 		boolean ran = false;
+		float x = 0;
+		float y = 0;
+
 		if (keys[0]){
 			//angle = angle - angle_increment;
-			acc.y =  - acc_magnitude * sin(radians(angle));
-			acc.x =  + acc_magnitude * cos(radians(angle));
+			y -= acc_magnitude * sin(radians(angle));
+			x += acc_magnitude * cos(radians(angle));
 			ran = true;
 		}
 		if (keys[1]){
 			//angle = angle + angle_increment;
-			acc.y =  + acc_magnitude * sin(radians(angle));
-			acc.x =  - acc_magnitude * cos(radians(angle));
+			y += acc_magnitude * sin(radians(angle));
+			x -= acc_magnitude * cos(radians(angle));
 			ran = true;
 		}
 		if (keys[3]){    
-			acc.y =  + acc_magnitude * cos(radians(angle));
-			acc.x =  + acc_magnitude * sin(radians(angle));
+			y += acc_magnitude * cos(radians(angle));
+			x += acc_magnitude * sin(radians(angle));
 			ran = true;
 		}
 		
 		if (keys[2]){
-			acc.y =  - acc_magnitude * cos(radians(angle));
-			acc.x =  - acc_magnitude * sin(radians(angle));
+			y -= acc_magnitude * cos(radians(angle));
+			x -= acc_magnitude * sin(radians(angle));
 			ran = true;
 		}
 		if (!ran){
 			acc.y = 0;
 			acc.x = 0;
+		}else{
+			acc.x = x;
+			acc.y = y;
 		}
+
+	}
+	void handleUpDownLeftRight(boolean [] keys){
+		boolean ran = false;
+		float x = 0;
+		float y = 0;
+
+		if (keys[0]){
+			//angle = angle - angle_increment;
+			y -= acc_magnitude * sin(radians(angle));
+			x += acc_magnitude * cos(radians(angle));
+			ran = true;
+		}
+		if (keys[1]){
+			//angle = angle + angle_increment;
+			y += acc_magnitude * sin(radians(angle));
+			x -= acc_magnitude * cos(radians(angle));
+			ran = true;
+		}
+		if (keys[3]){    
+			y += acc_magnitude * cos(radians(angle));
+			x += acc_magnitude * sin(radians(angle));
+			ran = true;
+		}
+		
+		if (keys[2]){
+			y -= acc_magnitude * cos(radians(angle));
+			x -= acc_magnitude * sin(radians(angle));
+			ran = true;
+		}
+		if (!ran){
+			acc.y = 0;
+			acc.x = 0;
+		}else{
+			acc.x = x;
+			acc.y = y;
+		}
+
 	}
 };
