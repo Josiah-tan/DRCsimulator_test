@@ -26,7 +26,7 @@ float init_y = 1238;
 
 // initial rotation settings
 float init_angle = -82;
-int radius = 300; // radius of curvature
+int radius = 500; // radius of curvature
 
 // constant increments
 float angle_increment = 0.5; // degrees

@@ -51,14 +51,19 @@ class Car{
 
 		if (keys[0]){
 			//angle = angle - angle_increment;
-			y -= acc_magnitude * sin(radians(angle));
-			x += acc_magnitude * cos(radians(angle));
+			float vel_mag = vel.mag();
+			angle -= (180 / PI) * vel_mag / radius;
+			println(angle);
+			y -= vel_mag * vel_mag / radius * sin(radians(angle));
+			x += vel_mag * vel_mag / radius * cos(radians(angle));
 			ran = true;
 		}
 		if (keys[1]){
 			//angle = angle + angle_increment;
-			y += acc_magnitude * sin(radians(angle));
-			x -= acc_magnitude * cos(radians(angle));
+			float vel_mag = vel.mag();
+			angle += (180 / PI) * vel_mag / radius;
+			y += vel_mag * vel_mag / radius * sin(radians(angle));
+			x -= vel_mag * vel_mag / radius * cos(radians(angle));
 			ran = true;
 		}
 		if (keys[3]){    
