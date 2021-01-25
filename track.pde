@@ -11,14 +11,15 @@ class Track{
 	float view_plane_x_angle;
 	float bias;
 
-	Track(String img_file){
+	Track(String img_file, int view_factor_x, int view_factor_y,
+				int view_z, float dist_z, float view_plane_x_angle){
 		this.img_file = img_file;
-		view_factor_x = 10;
-		view_factor_y = 10;
+		this.view_factor_x = view_factor_x;
+		this.view_factor_y = view_factor_y;
 
-		view_z = 0; // distance the image is away from us
-		dist_z = -(360/2.0) / tan(PI*30.0 / 180.0); // actual distance from normal setting (view_z = 0)
-		view_plane_x_angle = 50; // angle of the cartesian plane rotated about x for viewing
+		this.view_z = view_z;
+		this.dist_z = dist_z;
+		this.view_plane_x_angle = view_plane_x_angle; 
 
 		bias = abs(view_z + dist_z) * sin(radians(view_plane_x_angle));
 	}

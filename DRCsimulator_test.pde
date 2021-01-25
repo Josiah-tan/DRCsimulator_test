@@ -2,52 +2,52 @@
 boolean keys[] = new boolean[4];
 
 // Communication with Python
-boolean record = true; //if true, turn on websockets
-ClientWebSocket client = new ClientWebSocket(record);
+boolean enable_web_socket = true; //if true, turn on websockets
+ClientWebSocket client = new ClientWebSocket(enable_web_socket);
 
-// Track initialisation
-Track track = new Track("drc_track.png");
 
-float initial_x = 1680;
-float initial_y = 1238;
+/* track settings */
+String img_file = "drc_track.png";
+
+int view_factor_x = 10; // increases the image size
+int view_factor_y = 10;
+
+int view_z = 0; // distance the image is away from us
+float dist_z = -(360/2.0) / tan(PI*30.0 / 180.0); // actual distance from normal setting (view_z = 0)
+float view_plane_x_angle = 50; // angle of the cartesian plane rotated about x for viewing
+
+Track track = new Track(img_file, view_factor_x, view_factor_y, view_z, dist_z, view_plane_x_angle);
+
+
+/* car settings */
+// initial position settings
+float init_x = 1680;
+float init_y = 1238;
 
 // initial rotation settings
-float initial_angle = -82;
+float init_angle = -82;
 int radius = 300; // radius of curvature
-float angle_increment = 0.5; // degrees
 
-// displacement increments
+// constant increments
+float angle_increment = 0.5; // degrees
 int disp_increment = 5;
 
-
-/*variables used for backend calculations */
-// calculating coordinates of vehicle on a circumference when turning relative to the left corner of the actual image
-float x = initial_x;
-float y = initial_y;
-
-// angle relative to the vertical axis
-float angle = initial_angle;
-
+Car car = new Car(init_x, init_y, init_angle, radius, angle_increment, disp_increment);
 
 
 void setup() {
-  // Images must be in the "data" directory to load correctly
-  //img = loadImage("drc_track.png");
-
 	track.setup();
-  size(640, 360, P3D); // if you change any of this, remember to change stuff below
 
-	client.connect(this, "127.0.0.1", 5000);
+  size(640, 360, P3D); // initialising the canvas
+
+	client.connect(this, "127.0.0.1", 5000); //initialising the websocket connection
 }
 
 void draw() {
-
   background(255);
 
-
-	track.update(x, y, angle);
-
-  rotating_z(keys);
+	car.update(keys);
+	track.update(car.x, car.y, car.angle);
 
 	client.write(keys);
 }

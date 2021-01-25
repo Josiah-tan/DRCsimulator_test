@@ -1,3 +1,4 @@
+/*
 void change_pos(boolean [] keys){
   if (keys[0]) initial_angle = initial_angle - angle_increment;
   if (keys[1]) initial_angle = initial_angle + angle_increment;
@@ -86,6 +87,7 @@ void view_changing(boolean [] keys, int view_z, float view_plane_x_angle){
     
   }
 }
+*/
 
 
 void keyPressed(){

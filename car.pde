@@ -3,13 +3,17 @@ class Car{
 	float y;
 	float angle;
 	float radius;
-	float angle_increment = 0.5; // degrees
+	float angle_increment; // degrees
+	float disp_increment;
 
-	Car(float init_x, float init_y, float init_angle, float init_radius){
+	Car(float init_x, float init_y, float init_angle, float init_radius,
+			float angle_increment, int disp_increment){
 		x = init_x;
 		y = init_y;
 		angle = init_angle;
 		radius = init_radius;
+		this.angle_increment = angle_increment;
+		this.disp_increment = disp_increment;
 	}
 
 	void update(boolean [] keys){
