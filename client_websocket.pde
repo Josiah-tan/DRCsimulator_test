@@ -1,6 +1,7 @@
 import processing.net.*; 
 
 class ClientWebSocket{
+	// some declaration of variables here
 	String str;
 	Client myClient;
 
@@ -10,6 +11,7 @@ class ClientWebSocket{
 	}
 
 	void connect(DRCsimulator_test other, String host, int port){
+		// connect to Python here via websockets
 		if (enable){
 			myClient = new Client(other, host, port); 
 		}

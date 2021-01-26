@@ -21,7 +21,7 @@ class Track{
 		this.dist_z = dist_z;
 		this.view_plane_x_angle = view_plane_x_angle; 
 
-		bias = abs(view_z + dist_z) * sin(radians(view_plane_x_angle));
+		bias = abs(view_z + dist_z) * sin(radians(view_plane_x_angle)); // some complicated equation here
 	}
 
 	void setup(){
@@ -35,6 +35,6 @@ class Track{
 		translate(0, bias); // changes the coordinate system so that rotation is from your POV
 
 		rotateZ(radians(angle));
-		image(img, -x , -y , width * view_factor_x, height * view_factor_y);
+		image(img, -x , -y , width * view_factor_x, height * view_factor_y); // set img coords and enlarge
 	}
 };
