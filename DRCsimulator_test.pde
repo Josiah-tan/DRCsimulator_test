@@ -2,7 +2,7 @@
 boolean keys[] = new boolean[4]; // elements in the array correspond to d, a, w, s respectively
 
 // Communication with Python
-boolean enable_web_socket = true; //if true, turn on websockets to send keyboard presses over to python
+boolean enable_web_socket = false; //if true, turn on websockets to send keyboard presses over to python
 ClientWebSocket client = new ClientWebSocket(enable_web_socket);
 
 
@@ -47,6 +47,11 @@ void setup() {
 
 void draw() {
   background(255); // set the background to white
+	/*
+	fill(100);
+	textSize(20);
+	text("jtan7828", 0, 180);
+	*/
 
 	// update the x, y and angle to the z-axis of the car due to keyboard presses
 	car.update(keys); 
