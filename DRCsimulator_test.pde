@@ -1,9 +1,6 @@
 // for keyboard control
 boolean keys[] = new boolean[4]; // elements in the array correspond to d, a, w, s respectively
 
-// Communication with Python
-boolean enable_web_socket = false; //if true, turn on websockets to send keyboard presses over to python
-ClientWebSocket client = new ClientWebSocket(enable_web_socket);
 
 
 /* track settings */
@@ -36,13 +33,20 @@ float f_acc_magnitude = 0.02; // magnitude of acceleration due to friction
 
 Car car = new Car(init_x, init_y, init_angle, radius, angle_increment, acc_magnitude, f_acc_magnitude);
 
+// Communication with Python
+ClientWebSocket client;
 
 void setup() {
+	//if true, turn on websockets to send keyboard presses over to python
+	boolean enable_web_socket = parse(args); 
+
+	client = new ClientWebSocket(enable_web_socket);
+	client.connect(this, "127.0.0.1", 5000); //initialising the websocket connection
+
 	track.setup(); // initialise the track
 
   size(640, 360, P3D); // initialising the canvas
 
-	client.connect(this, "127.0.0.1", 5000); //initialising the websocket connection
 }
 
 void draw() {
