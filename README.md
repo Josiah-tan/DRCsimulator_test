@@ -3,10 +3,12 @@
 ## Installation:
 
 - git clone this repository
+- Install Processing from https://processing.org/download/ (if you don't have it)
+	- Make sure to keep track of where you install Processing because you will need it for method 2 (terminal)
 
 ## Usage:
 
-- In the command line change directory until this repository is the current directory
+- Before contiuing, make sure that this repository is the current directory
 
 ### Method 1 (GUI):
 
@@ -16,7 +18,7 @@
 
 ### Method 2 (terminal):
 
-- Add "processing-java" to PATH environment variables
+- Add the directory that contains "processing-java" to PATH environment variables
 
 - Try "processing-java --sketch=%CD% --run" or  "processing-java --sketch=$PWD --run" depending in which OS u have
 
